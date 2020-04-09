@@ -1,4 +1,4 @@
-@layout('layouts.main')
+@layout('layouts.auth')
 
 @section('extracss')
 {{ style('forms') }}
@@ -9,6 +9,10 @@ Bookmarkly
 @endsection
 
 @section('content')
+  @if(flashMessage('message'))
+    <span>{{ flashMessage('message') }}</span>
+  @endif
+
   <h1>Login now</h1>
 
   <div>

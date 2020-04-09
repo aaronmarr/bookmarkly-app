@@ -34,6 +34,17 @@ class User extends Model {
   tokens () {
     return this.hasMany('App/Models/Token')
   }
+
+  /**
+   * A relationship on bookmarks
+   *
+   * @method bookmarks
+   *
+   * @return {Object}
+   */
+  bookmarks() {
+    return this.hasMany('App/Models/Bookmark');
+  }
 }
 
 module.exports = User

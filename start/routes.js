@@ -16,14 +16,25 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('index')
+Route.get('/', 'PageController.home').middleware(['guest']);
 
 Route.on('/signup').render('auth.signup');
 Route.on('/login').render('auth.login');
 
+
 Route.post('/signup', 'UserController.create').validator('CreateUser');
+
 Route.get('/logout', async ({ auth, response }) => {
   await auth.logout();
   return response.redirect('/');
 });
-Route.post('/login', 'UserController.login').validator('LoginUser');
+
+Route.post('/login', 'UserController.login').validator('LoginUser').as('login');
+
+// TODO this should be a grouped route?
+Route.get('/bookmarks', 'BookmarkController.index').as('bookmarks.index').middleware(['isAuth']);
+Route.get('/bookmarks/delete/:id', 'BookmarkController.delete').middleware(['isAuth']);
+Route.get('/bookmarks/edit/:id', 'BookmarkController.edit').as('bookmarks.edit').middleware(['isAuth']);
+Route.get('/bookmarks/new', 'BookmarkController.create').as('bookmarks.create').middleware(['isAuth']);
+Route.post('/bookmarks/store', 'BookmarkController.store').validator('CreateBookmark').middleware(['isAuth']);
+Route.post('/bookmarks/update/:id', 'BookmarkController.update').validator('CreateBookmark').middleware(['isAuth']);

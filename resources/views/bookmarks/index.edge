@@ -1,0 +1,27 @@
+@layout('layouts.app')
+
+@section('title')
+  Bookmarkly
+@endsection
+
+@section('content')
+  <h1>Bookmarks</h1>
+
+  @each(bookmark in bookmarks)
+  <div>
+    <div></div>
+    <div>
+      <h3>
+        <a href="{{ bookmark.url }}">{{ bookmark.title }}</a>
+      </h3>
+      <p>
+        {{ bookmark.url }}
+      </p>
+      <ul>
+        <li><a href="{{ route('BookmarkController.delete', { id: bookmark.id }) }}">Delete</a></li>
+        <li><a href="{{ route('BookmarkController.edit', { id: bookmark.id }) }}">Edit</a></li>
+      </ul>
+    </div>
+  </div>
+  @endeach
+@endsection

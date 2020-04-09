@@ -1,0 +1,37 @@
+@layout('layouts.app')
+
+@section('title')
+Bookmarkly - Edit your Bookmark
+@endsection
+
+@section('content')
+  <h1>Edit Bookmark</h1>
+
+
+  <div>
+    @if(flashMessage('message'))
+        <span>{{ flashMessage('message') }}</span>
+    @endif
+        <form action="{{ route('BookmarkController.update', { id: bookmark.id }) }}" method="POST">
+          {{ csrfField() }}
+  
+          <label for="title">Bookmark Title</label>
+          <input type="text" name="title" value="{{ bookmark.title }}">
+          @if(hasErrorFor('title'))
+              <span>
+                  {{ getErrorFor('title') }}
+              </span>
+          @endif
+  
+          <label for="url">Link URL</label>
+          <input type="text" name="url" value="{{ bookmark.url }}">
+          @if(hasErrorFor('url'))
+              <span>
+                  {{ getErrorFor('url') }}
+              </span>
+          @endif
+  
+          <button type="submit">Update Bookmark</button><br>
+        </form>
+    </div>
+@endsection

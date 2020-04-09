@@ -1,0 +1,37 @@
+@layout('layouts.app')
+
+@section('title')
+Bookmarkly - New bookmark
+@endsection
+
+@section('content')
+  <h1>New bookmark</h1>
+
+  <div>
+    @if(flashMessage('message'))
+      <span>{{ flashMessage('message') }}</span>
+    @endif
+    
+    <form action="{{ route('BookmarkController.store') }}" method="POST">
+      {{ csrfField() }}
+  
+      <label for="title">Bookmark Title</label>
+      <input type="text" name="title" value="{{ old('title', '') }}">
+      @if(hasErrorFor('title'))
+        <span>
+          {{ getErrorFor('title') }}
+        </span>
+      @endif
+  
+      <label for="url">Link URL</label>
+      <input type="text" name="url" value="{{ old('url', '') }}">
+      @if(hasErrorFor('url'))
+        <span>
+          {{ getErrorFor('url') }}
+        </span>
+      @endif
+
+      <button type="submit">Submit a Bookmark</button>
+    </form>
+  </div>
+@endsection
