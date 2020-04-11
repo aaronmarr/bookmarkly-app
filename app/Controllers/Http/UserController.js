@@ -22,7 +22,7 @@ class UserController {
       await auth.attempt(email, password);
       return response.redirect('/');
     } catch (error) {
-      session.flash({loginError: 'These credentials do not work.'})
+      session.flash({ loginError: 'These credentials do not work.' })
       return response.redirect('/login');
     }
   }
