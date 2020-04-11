@@ -18,8 +18,8 @@ const Route = use('Route')
 
 Route.get('/', 'PageController.home').middleware(['guest']);
 
-Route.on('/signup').render('auth.signup');
-Route.on('/login').render('auth.login');
+Route.on('/signup').render('auth.signup').middleware(['guest']);;
+Route.on('/login').render('auth.login').middleware(['guest']);;
 
 
 Route.post('/signup', 'UserController.create').validator('CreateUser');
